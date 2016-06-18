@@ -1,12 +1,14 @@
 var ToDoList = (function(){
     var instance;
 
+    //TODO: 快捷键
+    //TODO: 双击编辑
+
     function ToDoList() {
         this.newItem = document.getElementById("new-item");
         this.addBtn = document.getElementById("add-btn");
         this.todoList = document.getElementById("to-do-list").getElementsByTagName("ul")[0];
         this.doneList = document.getElementById("done-list").getElementsByTagName("ul")[0];
-
 
         if (window.localStorage && localStorage.todolist) {
             this.localList = JSON.parse(localStorage.todolist);
@@ -30,6 +32,8 @@ var ToDoList = (function(){
         for (var j = 0; j < done.length; j++) {
             this.createItem("done", done[j]);
         }
+
+        this.newItem.focus();
     };
 
     ToDoList.prototype.addToLocalList = function(list, item) {
@@ -59,9 +63,8 @@ var ToDoList = (function(){
     };
 
     ToDoList.prototype.addNewItem = function() {
-        if(this.newItem.value === "") {
-            //TODO: tipso
-            alert("内容不能为空");
+        if(this.checkEmpty(this.newItem.value)) {
+            this.tipso("内容不能为空");
         } else {
             var itemContent = this.newItem.value;
             this.createItem("todo", itemContent);
@@ -91,12 +94,19 @@ var ToDoList = (function(){
         var containsClassEdit = list.classList.contains("edit");
 
         if (containsClassEdit) {
-            label.innerText = editArea.value;
+
+            if(this.checkEmpty(editArea.value)) {
+                this.tipso("内容不能为空!");
+                return false;
+            } else {
+                label.innerText = editArea.value;
+
             list.setAttribute("data-item", editArea.value);
             _this.addToLocalList(list, editArea.value);
 
             fa = fa.replace(/save/, "edit");
             icon.setAttribute("class", fa);
+            }
 
         } else {
             editArea.value = label.innerText;
@@ -211,10 +221,92 @@ var ToDoList = (function(){
 
     ToDoList.prototype.bindEvent = function() {
         var _this = this;
-        this.addBtn.addEventListener("click", function() {
+        // this.addBtn.addEventListener("click", function() {
+        //     _this.addNewItem();
+        // });
+        this.addEvent(this.addBtn, "click", function() {
             _this.addNewItem();
         });
 
+    };
+
+    ToDoList.prototype.tipso = function(msg) {
+        var _this = this;
+        var message = document.getElementById("msg");
+        message.textContent = msg;
+        this.fadeIn(message);
+        setTimeout(function() {
+            _this.fadeOut(message);
+        },1000);
+    };
+
+    ToDoList.prototype.trimStr = function(str) {
+        if (!String.prototype.trim) {
+            return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+        } else {
+            return str.trim();
+        }
+    };
+
+    ToDoList.prototype.checkEmpty = function(str) {
+        if(this.trimStr(str) === "") {
+            return true;
+        }
+    };
+
+    ToDoList.prototype.addEvent = function(node, type, handler) {
+        if (!node) return false;
+        if (node.addEventListener) {
+            node.addEventListener(type, handler, false);
+            return true;
+        } else if (node.attachEvent) {
+            node.attachEvent('on' + type, handler);
+            return true;
+        }
+        return false;
+    };
+
+    ToDoList.prototype.fadeIn = function(el) {
+        var opacity = 0;
+
+        el.style.opacity = 0;
+        el.style.filter = '';
+
+        var last = +new Date();
+        var tick = function() {
+            opacity += (new Date() - last) / 400;
+            el.style.opacity = opacity;
+            el.style.filter = 'alpha(opacity=' + (100 * opacity)|0 + ')';
+
+            last = +new Date();
+
+            if (opacity < 1) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+            }
+        };
+
+        tick();
+    };
+
+    ToDoList.prototype.fadeOut = function(el) {
+        var opacity = 1;
+
+        el.style.opacity = 1;
+        el.style.filter = '';
+
+        var last = +new Date();
+        var tick = function() {
+            opacity -= (new Date() - last) / 400;
+            el.style.opacity = opacity;
+            el.style.filter = 'alpha(opacity=' + (100 * opacity)|0 + ')';
+
+            last = +new Date();
+
+            if (opacity > 0) {
+                (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+            }
+        };
+        tick();
     };
 
     if (!instance) {
@@ -222,3 +314,4 @@ var ToDoList = (function(){
     }
     return instance;
 })();
+

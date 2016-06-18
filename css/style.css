@@ -5,6 +5,10 @@ body, div, p, h1, h2, h3, h4, h5, h6, ol, ul, dl, li, dt, dd, form, table {
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     font-family:
         "Helvetica Neue",
@@ -16,6 +20,7 @@ body {
         "WenQuanYi Micro Hei",
         sans-serif;
     font-size: 16px;
+    height: 100%;
 }
 
 img { border: none; }
@@ -33,7 +38,10 @@ li { list-style: none; }
 
 .container {
     width: 600px;
-    margin: 30px auto;
+    margin: 30px auto -40px;
+    min-height:100%;
+    /*height: auto !important;*/
+    *height: 100%; /*IE6不识别min-height*/
 }
 
 @media screen and (max-width: 640px) {
@@ -103,8 +111,8 @@ input[type="checkbox"] {
     border-radius: 3px;
     display: inline-block;
     position: relative;
-    vertical-align: middle;
-    top: -2px;
+    vertical-align: top;
+    top: 3px;
 }
 
 input[type="checkbox"]:active, input[type="checkbox"]:checked:active {
@@ -153,4 +161,41 @@ h3 {
 #add-btn {
     font-size: 30px;
     vertical-align: middle;
+}
+
+#done-list {
+
+}
+
+.push,
+#footer {
+    height: 40px;
+    clear:both;
+}
+
+.push {
+    margin-top: 50px;
+}
+
+#footer {
+    text-align: center;
+    line-height: 40px;
+}
+
+#footer a {
+    text-decoration: underline;
+}
+
+#msg {
+    width: 300px;
+    position: absolute;
+    background-color: #000;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
 }
