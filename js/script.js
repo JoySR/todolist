@@ -132,10 +132,11 @@ var ToDoList = (function(){
 
         list.parentNode.removeChild(list);
         this.doneList.appendChild(list);
-        checkbox.removeEventListener("change", function() {
+
+        this.removeEvent(checkbox, "change", function() {
             _this.markAsDone(this);
         });
-        checkbox.addEventListener("change", function() {
+        this.addEvent(checkbox, "change", function() {
             _this.markAsTodo(this);
         });
     };
@@ -150,10 +151,11 @@ var ToDoList = (function(){
 
         list.parentNode.removeChild(list);
         this.todoList.appendChild(list);
-        checkbox.removeEventListener("change", function() {
+
+        this.removeEvent(checkbox, "change", function() {
             _this.markAsTodo(this);
         });
-        checkbox.addEventListener("change", function() {
+        this.addEvent(checkbox, "change", function() {
             _this.markAsDone(this);
         });
     };
@@ -166,7 +168,8 @@ var ToDoList = (function(){
 
         var checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
-        checkbox.addEventListener("change", function() {
+
+        this.addEvent(checkbox, "change", function() {
             _this.markAsDone(this);
         });
 
@@ -182,7 +185,7 @@ var ToDoList = (function(){
         // editBtn.setAttribute("href", "#");
         editBtn.setAttribute("class", "edit-btn btn");
 
-        editBtn.addEventListener("click", function() {
+        this.addEvent(editBtn, "click", function() {
             _this.editItem(_this, editBtn);
         });
 
@@ -194,7 +197,7 @@ var ToDoList = (function(){
         // delBtn.setAttribute("href", "#");
         delBtn.setAttribute("class", "del-btn btn");
 
-        delBtn.addEventListener("click", function(e) {
+        this.addEvent(delBtn, "click", function(e) {
             e.preventDefault();
             var delConfirm = confirm("确定要删除吗? 现在还没有回收站功能哦");
             if (delConfirm) {
@@ -221,13 +224,9 @@ var ToDoList = (function(){
 
     ToDoList.prototype.bindEvent = function() {
         var _this = this;
-        // this.addBtn.addEventListener("click", function() {
-        //     _this.addNewItem();
-        // });
         this.addEvent(this.addBtn, "click", function() {
             _this.addNewItem();
         });
-
     };
 
     ToDoList.prototype.tipso = function(msg) {
@@ -261,6 +260,18 @@ var ToDoList = (function(){
             return true;
         } else if (node.attachEvent) {
             node.attachEvent('on' + type, handler);
+            return true;
+        }
+        return false;
+    };
+
+    ToDoList.prototype.removeEvent = function(node, type, handler) {
+        if (!node) return false;
+        if (node.removeEventListener) {
+            node.removeEventListener(type, handler, false);
+            return true;
+        } else if (node.detachEvent) {
+            node.detachEvent('on' + type, handler);
             return true;
         }
         return false;
