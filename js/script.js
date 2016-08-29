@@ -2,7 +2,6 @@ var ToDoList = (function(){
     var instance;
 
     //TODO: 快捷键
-    //TODO: 双击编辑
 
     function ToDoList() {
         this.newItem = document.getElementById("new-item");
