@@ -23,15 +23,13 @@ var ToDoList = (function(){
     }
 
     ToDoList.prototype.init = function() {
+        var _this = this;
+
         var todo = this.localList.todo;
         var done = this.localList.done;
 
-        for (var i = 0; i < todo.length; i++) {
-            this.createItem("todo", todo[i]);
-        }
-        for (var j = 0; j < done.length; j++) {
-            this.createItem("done", done[j]);
-        }
+        todo && todo.map(function(item) {_this.createItem("todo", item)});
+        done && done.map(function(item) {_this.createItem("done", item)});
 
         this.newItem.focus();
     };
