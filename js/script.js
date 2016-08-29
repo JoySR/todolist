@@ -206,6 +206,10 @@ var ToDoList = (function(){
         delIcon.setAttribute("class", "fa fa-trash-o");
         delBtn.appendChild(delIcon);
 
+        this.addEvent(label, "dblclick", function(e) {
+            _this.editItem(_this, editBtn);
+        });
+
         li.appendChild(checkbox);
         li.appendChild(label);
         li.appendChild(text);
