@@ -8,28 +8,50 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
+<div class="container">
     <div id="add-todo">
         <h3>新项目</h3>
         <input type="text" id="new-item">
         <a id="add-btn" class="btn" href="#"><i class="fa fa-plus-square-o"></i></a>
     </div>
-        <div id="to-do-list">
-            <h3>待办清单</h3>
-    <ul>
-    </ul>
-        </div>
-    <div id="done-list">
-            <h3>已完成列表</h3>
+    <div id="to-do-list">
+        <h3>待办清单</h3>
         <ul>
+            <!--<li data-item="添加一个 todo 项目" data-type="todo">-->
+                <!--<input type="checkbox">-->
+                <!--<label>添加一个 todo 项目</label>-->
+                <!--<input type="text" class="edit-area">-->
+                <!--<a class="edit-btn btn">-->
+                    <!--<i class="fa fa-edit"></i>-->
+                <!--</a>-->
+                <!--<a class="del-btn btn">-->
+                    <!--<i class="fa fa-trash-o"></i>-->
+                <!--</a>-->
+            <!--</li>-->
         </ul>
     </div>
-        <div class="push"></div>
+    <div id="done-list">
+        <h3>已完成列表</h3>
+        <ul>
+            <!--<li data-item="完成项目" data-type="done">-->
+                <!--<input type="checkbox" checked>-->
+                <!--<label>完成项目</label>-->
+                <!--<input type="text" class="edit-area">-->
+                <!--<a class="edit-btn btn">-->
+                    <!--<i class="fa fa-edit"></i>-->
+                <!--</a>-->
+                <!--<a class="del-btn btn">-->
+                    <!--<i class="fa fa-trash-o"></i>-->
+                <!--</a>-->
+            <!--</li>-->
+        </ul>
     </div>
-    <div id="footer">
-        <p>&copy; 2016 <a href="http://joysr.com">Hanna</a> A simple Todolist right in the browser. <a href="https://github.com/Joysr/todolist">GitHub</a></p>
-    </div>
-    <div id="msg" class="hide"></div>
-    <script src="js/script.js"></script>
+    <div class="push"></div>
+</div>
+<div id="footer">
+    <p>&copy; 2016 <a href="http://joysr.com">Hanna</a> A simple Todolist right in the browser. <a href="https://github.com/Joysr/todolist">GitHub</a></p>
+</div>
+<div id="msg" class="hide"></div>
+<script src="js/script.js"></script>
 </body>
 </html>
