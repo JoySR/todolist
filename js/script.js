@@ -216,9 +216,9 @@ var ToDoList = (function(){
         li.appendChild(delBtn);
 
         if (type === "todo") {
-            this.todoList.appendChild(li);
+            this.todoList.insertBefore(li, this.todoList.firstChild);
         } else {
-            this.doneList.appendChild(li);
+            this.doneList.insertBefore(li, this.doneList.firstChild);
         }
 
     };
