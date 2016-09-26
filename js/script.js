@@ -228,6 +228,11 @@ var ToDoList = (function(){
         this.addEvent(this.addBtn, "click", function() {
             _this.addNewItem();
         });
+        this.addEvent(this.newItem, "keydown", function(event) {
+            if(event.keyCode == 13) {
+                _this.addNewItem();
+            }
+        })
     };
 
     ToDoList.prototype.tipso = function(msg) {
