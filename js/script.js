@@ -35,7 +35,7 @@ var ToDoList = (function(){
 
     ToDoList.prototype.addToLocalList = function(list, item) {
         if (list.getAttribute("data-type") === "todo") {
-           this.localList.todo.push(item);
+            this.localList.todo.push(item);
         } else {
             this.localList.done.push(item);
         }
@@ -98,11 +98,11 @@ var ToDoList = (function(){
             } else {
                 label.innerText = editArea.value;
 
-            list.setAttribute("data-item", editArea.value);
-            _this.addToLocalList(list, editArea.value);
+                list.setAttribute("data-item", editArea.value);
+                _this.addToLocalList(list, editArea.value);
 
-            fa = fa.replace(/save/, "edit");
-            icon.setAttribute("class", fa);
+                fa = fa.replace(/save/, "edit");
+                icon.setAttribute("class", fa);
             }
 
         } else {
